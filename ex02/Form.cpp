@@ -1,4 +1,5 @@
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 #include <ostream>
 #include <iostream>
 
@@ -15,7 +16,7 @@ Form :: ~Form()
      << " n'existe plus" << std :: endl;
 }
 
-std :: string Form :: get_name()
+std :: string Form :: get_name() const
 {
     return (this->name);
 }
@@ -24,7 +25,8 @@ int Form :: get_gradeSigned()
 {
     return (this->grade_signed);
 }
-int Form :: get_gardeExec()
+
+int Form :: get_gardeExec() const
 {
     return (this->grade_exec);
 }

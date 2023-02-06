@@ -1,23 +1,17 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <ostream>
 
 int main()
 {
     Bureaucrat a("we", 1777);
     a.grade_decremente();
-    a.grade_incremente();
 
-    Bureaucrat b("sonia", 7);
+    Bureaucrat b("hello", 5);
     b.grade_decremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
+
+    Form C("bonjour", 5, 7);
+    C.beSigned(b);
 
     return (0);
 }

@@ -1,7 +1,11 @@
 NAME		= Bureaucrat
 OBJS		= objs
 
-SRCS		= main.cpp Bureaucrat.cpp Form.cpp
+SRCS		= main.cpp Bureaucrat.cpp Form.cpp \
+				 PresidentialPardonForm.cpp\
+				 RobotomyRequestForm.cpp\
+				 ShrubberyCreationForm.cpp\
+				 
 
 CC			= clang++
 CFLAGS		= -Wall -Wextra -Werror -std=c++98

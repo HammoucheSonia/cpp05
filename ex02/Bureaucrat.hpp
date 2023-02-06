@@ -4,6 +4,7 @@
 #include <ostream>
 #include <iostream>
 
+class Form;
 
 class Bureaucrat
 {
@@ -20,6 +21,7 @@ class Bureaucrat
         void grade_decremente();
         int getGrade()const;
         void signForm(bool signature);
+        void executeForm(Form const & form);
 };
 
 std :: ostream& operator<<(std :: ostream & o, const Bureaucrat&src);

@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat :: Bureaucrat(const std :: string name, int grade) :name(name)
 {
@@ -105,6 +106,17 @@ void Bureaucrat :: signForm(bool signature)
         std :: cout << "bureaucrat signed form" << std :: endl;
     else 
         std :: cout << "bureaucrat couldn't sign form" << std :: endl;
+}
+
+
+void Bureaucrat :: executeForm(Form const & form)
+{
+    if (getGrade() <= form.get_gardeExec())
+    {
+       std :: cout << getName() << "executed " << form.get_name() << std :: endl;
+    }
+    else
+        std :: cout << getName() << "d'ont execute " << form.get_name() << std :: endl;
 }
 
 std :: ostream &operator<<(std :: ostream &o, Bureaucrat const &src)
