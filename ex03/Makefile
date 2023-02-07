@@ -1,10 +1,11 @@
-NAME		= Bureaucrat
+NAME		= Imtern
 OBJS		= objs
 
 SRCS		= main.cpp Bureaucrat.cpp Form.cpp \
 				 PresidentialPardonForm.cpp\
 				 RobotomyRequestForm.cpp\
 				 ShrubberyCreationForm.cpp\
+				 Intern.cpp\
 				 
 
 CC			= g++
