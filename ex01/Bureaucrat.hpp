@@ -4,6 +4,9 @@
 #include <ostream>
 #include <iostream>
 
+#define grade_max 1
+#define grade_min 150
+class Form;
 
 class Bureaucrat
 {
@@ -11,6 +14,7 @@ class Bureaucrat
         const std :: string name;
         int grade;
     public:
+        Bureaucrat();
         Bureaucrat(std :: string name, int grade);
         ~Bureaucrat();
         Bureaucrat(const Bureaucrat &src);
@@ -19,7 +23,15 @@ class Bureaucrat
         void grade_incremente();
         void grade_decremente();
         int getGrade()const;
-        void signForm(bool signature);
+        void signForm(Form &form);
+        class GradeTooLowException : public std::exception
+	    {
+		    const char *what() const throw ();
+	    };
+	    class GradeTooHighException : public std::exception
+	    {
+		    const char *what() const throw ();
+	    };
 };
 
 std :: ostream& operator<<(std :: ostream & o, const Bureaucrat&src);

@@ -3,21 +3,50 @@
 
 int main()
 {
-    Bureaucrat a("we", 1777);
-    a.grade_decremente();
-    a.grade_incremente();
-
-    Bureaucrat b("sonia", 7);
-    b.grade_decremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-    b.grade_incremente();
-
+    std::cout << "--------------[  grade = 0  ]--------------" << std::endl;
+	try
+	{
+		Bureaucrat Bob("Bob", 0);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << "--------------[ grade = 151 ]--------------" << std::endl;
+	try
+	{
+		Bureaucrat Bob("Bob", 151);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+    try
+	{
+		Bureaucrat Bob("Bob", 120);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << "--------------[  grade = 1  ]--------------" << std::endl;
+	try
+	{
+		Bureaucrat Bob("Bob", 1);
+        Bob.grade_decremente();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	std::cout << "--------------[   default   ]--------------" << std::endl;
+	try
+	{
+		Bureaucrat Bob;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
     return (0);
 }

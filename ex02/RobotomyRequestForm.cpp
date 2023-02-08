@@ -11,7 +11,13 @@ RobotomyRequestForm :: ~RobotomyRequestForm()
     std :: cout << "RobotomyRequestForm est mort" << std :: endl;
 }
 
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) 
+    : Form(other) {}
 
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &other) {
+    Form::operator=(other);
+    return (*this);
+}
 
 void RobotomyRequestForm :: execute(Bureaucrat const & executor) const
 {

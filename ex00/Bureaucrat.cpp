@@ -1,27 +1,19 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat :: Bureaucrat(const std :: string name, int grade) :name(name)
+Bureaucrat::Bureaucrat()
 {
-    try
-    {
-        if (grade > 150)
-            throw (name);
-        else if (grade < 1)
-            throw (grade);
-        this->grade = grade;
-        std :: cout << this->name << " le bureaucrat a ete cree de grade : " \
-        << this->grade << std :: endl;
-    }
-    catch (int grade)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException" << std :: endl;
-    }
-    catch (std :: string name)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
-
 }
+ 
+
+Bureaucrat :: Bureaucrat(const std :: string name, int grade): name(name)
+{
+    if (grade < 1)
+		throw GradeTooHighException();
+	else if (grade > 150)
+		throw GradeTooLowException();
+    this->grade = grade;
+}
+
 
 Bureaucrat :: ~Bureaucrat()
 {
@@ -53,50 +45,32 @@ int Bureaucrat :: getGrade() const
 
 void Bureaucrat :: grade_incremente()
 {
-    std :: string error = "404";
-    int num_error = 404;
-    try
-    {
-        if ((this->grade - 1) > 150)
-            throw (error);
-        else if ((this->grade - 1) < 1)
-            throw (num_error);
-        this->grade = this->grade - 1;
-        std :: cout << this->name << " : j'ai un nouveau grade " \
-        << this->grade << std :: endl;
-    }
-    catch (int num_error)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException." << std :: endl;
-    }
-    catch(std :: string error)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
+    if (this->grade == 1) {
+		throw GradeTooHighException();
+	}
+    this->grade = this->grade - 1;
+    std :: cout << this->name << " : j'ai un nouveau grade " \
+     << this->grade << std :: endl;
 }
 
 void Bureaucrat :: grade_decremente()
 {
-    std :: string error = "404";
-    int num_error = 404;
-    try
-    {
-        if ((this->grade + 1) > 150)
-            throw (num_error);
-        else if ((this->grade + 1) < 1)
-            throw (error);
-        this->grade = this->grade + 1;
-        std :: cout << this->name << " : j'ai un nouveau grade " \
-        << this->grade << std :: endl;
-    }
-    catch (int num_error)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException." << std :: endl;
-    }
-    catch(std :: string error)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
+    if (this->grade == 150) {
+        throw GradeTooLowException();
+	}
+    this->grade = this->grade + 1;
+    std :: cout << this->name << " : j'ai un nouveau grade " \
+     << this->grade << std :: endl;
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw ()
+{
+	return "too High";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw ()
+{
+	return "too low";
 }
 
 std :: ostream &operator<<(std :: ostream &o, Bureaucrat const &src)

@@ -2,7 +2,7 @@
 #include <fstream>  
 
 ShrubberyCreationForm :: ShrubberyCreationForm(const std :: string target)\
-: Form("residential Pardon", 145, 137), target(target)
+: Form("ShrubberyCreationForm", 145, 137), target(target)
 {
     std :: cout << "ShrubberyCreationForm a ete cree" <<  std :: endl;
 }
@@ -10,6 +10,14 @@ ShrubberyCreationForm :: ShrubberyCreationForm(const std :: string target)\
 ShrubberyCreationForm :: ~ShrubberyCreationForm()
 {
     std :: cout << "ShrubberyCreationForm est mort" << std :: endl;
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) 
+    : Form(other) {}
+
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other) {
+    Form::operator=(other);
+    return (*this);
 }
 
 void ShrubberyCreationForm :: execute(Bureaucrat const & executor) const

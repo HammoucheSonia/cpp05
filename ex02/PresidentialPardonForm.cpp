@@ -11,6 +11,14 @@ PresidentialPardonForm :: ~PresidentialPardonForm()
     std :: cout << "PresidentialPardonForm est mort" << std :: endl;
 }
 
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other) 
+    : Form(other) {}
+
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &other) {
+    Form::operator=(other);
+    return (*this);
+}
+
 void PresidentialPardonForm :: execute(Bureaucrat const & executor) const
 {
     if (executor.getGrade() <= get_gardeExec())

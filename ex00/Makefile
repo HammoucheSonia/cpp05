@@ -3,7 +3,7 @@ OBJS		= objs
 
 SRCS		= main.cpp Bureaucrat.cpp
 
-CC			= clang++
+CC			= g++
 CFLAGS		= -Wall -Wextra -Werror -std=c++98
 
 
@@ -21,4 +21,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re

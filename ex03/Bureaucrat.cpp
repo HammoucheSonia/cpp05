@@ -1,32 +1,24 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-Bureaucrat :: Bureaucrat(const std :: string name, int grade) :name(name)
+Bureaucrat::Bureaucrat()
 {
-    try
-    {
-        if (grade > 150)
-            throw (name);
-        else if (grade < 1)
-            throw (grade);
-        this->grade = grade;
-        std :: cout << this->name << " le bureaucrat a ete cree de grade : " \
-        << this->grade << std :: endl;
-    }
-    catch (int grade)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException" << std :: endl;
-    }
-    catch (std :: string name)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
-
 }
+ 
+
+Bureaucrat :: Bureaucrat(const std :: string name, int grade): name(name)
+{
+    if (grade < 1)
+		throw GradeTooHighException();
+	else if (grade > 150)
+		throw GradeTooLowException();
+    this->grade = grade;
+}
+
 
 Bureaucrat :: ~Bureaucrat()
 {
-    std :: cout << "le bureaucrat est mort" \
+    std :: cout << this->name << " le bureaucrat est mort" \
     << std :: endl;
 }
 
@@ -38,8 +30,7 @@ Bureaucrat :: Bureaucrat(const Bureaucrat &src)
 
 Bureaucrat &Bureaucrat :: operator=(const Bureaucrat &src)
 {
-    if (this != &src)
-        this->grade = src.getGrade();
+    this->grade = src.getGrade();
     return (*this);
 }
 
@@ -55,69 +46,63 @@ int Bureaucrat :: getGrade() const
 
 void Bureaucrat :: grade_incremente()
 {
-    std :: string error = "404";
-    int num_error = 404;
-    try
-    {
-        if ((this->grade - 1) > 150)
-            throw (error);
-        else if ((this->grade - 1) < 1)
-            throw (num_error);
-        this->grade = this->grade - 1;
-        std :: cout << this->name << " : j'ai un nouveau grade " \
-        << this->grade << std :: endl;
-    }
-    catch (int num_error)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException." << std :: endl;
-    }
-    catch(std :: string error)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
+    if (this->grade == 1) {
+		throw GradeTooHighException();
+	}
+    this->grade = this->grade - 1;
+    std :: cout << this->name << " : j'ai un nouveau grade " \
+     << this->grade << std :: endl;
 }
 
 void Bureaucrat :: grade_decremente()
 {
-    std :: string error = "404";
-    int num_error = 404;
-    try
-    {
-        if ((this->grade + 1) > 150)
-            throw (num_error);
-        else if ((this->grade + 1) < 1)
-            throw (error);
-        this->grade = this->grade + 1;
-        std :: cout << this->name << " : j'ai un nouveau grade " \
-        << this->grade << std :: endl;
-    }
-    catch (int num_error)
-    {
-        std :: cout << "Bureaucrat::GradeTooHighException." << std :: endl;
-    }
-    catch(std :: string error)
-    {
-        std :: cout << "Bureaucrat::GradeTooLowException." << std :: endl;
-    }
+    if (this->grade == 150) {
+        throw GradeTooLowException();
+	}
+    this->grade = this->grade + 1;
+    std :: cout << this->name << " : j'ai un nouveau grade " \
+     << this->grade << std :: endl;
 }
 
-void Bureaucrat :: signForm(bool signature)
+const char* Bureaucrat::GradeTooHighException::what() const throw ()
 {
-    if (signature)
-        std :: cout << "bureaucrat signed form" << std :: endl;
+	return "too High";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw ()
+{
+	return "too low";
+}
+
+void Bureaucrat :: signForm(Form &form)
+{
+    if (form.getSigned() == true)
+        std :: cout << "ce formulaire est deja sige" << std :: endl;
     else 
-        std :: cout << "bureaucrat couldn't sign form" << std :: endl;
+    {
+        try
+        {
+            form.beSigned(*this);
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "cannot assighn because " << e.what() << '\n';
+        }
+    }
 }
 
-
-void Bureaucrat :: executeForm(Form const & form)
+void Bureaucrat::executeForm(Form const & form) const
 {
-    if (getGrade() <= form.get_gardeExec())
-    {
-       std :: cout << getName() << "executed " << form.get_name() << std :: endl;
-    }
-    else
-        std :: cout << getName() << "d'ont execute " << form.get_name() << std :: endl;
+	try
+	{
+		form.execute(*this);
+		std::cout << this->name << " execute " << form.get_name();
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << " failed because ";
+		std::cerr << e.what() << '\n';
+	}
 }
 
 std :: ostream &operator<<(std :: ostream &o, Bureaucrat const &src)
